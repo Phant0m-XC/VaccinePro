@@ -157,16 +157,18 @@ void AddChildWidget::showEditWidget(QModelIndex index)
     comb_vacc_settings->setCurrentIndex(0);
     QAbstractItemModel *item_model{const_cast<QAbstractItemModel*>(index.model())};
     ProxySearchModel *proxy_model{static_cast<ProxySearchModel*>(item_model)};
+    QModelIndex source_index{proxy_model->mapToSource(index)};
     ChildrenModel *children{static_cast<ChildrenModel*>(proxy_model->sourceModel())};
-    ChildModel const *child{children->getModel(index.row())};
+    int row{source_index.row()};
+    ChildModel const *child{children->getModel(row)};
     model = const_cast<ChildModel*>(child);
     table->setModel(model);
-    mapper->setModel(item_model);
+    mapper->setModel(const_cast<QAbstractItemModel*>(source_index.model()));
     mapper->addMapping(txt_l_name, 0);
     mapper->addMapping(txt_f_name, 1);
     mapper->addMapping(txt_m_name, 2);
     mapper->addMapping(cal_birthday, 3, "selectedDate");
-    mapper->setCurrentModelIndex(index);
+    mapper->setCurrentModelIndex(source_index);
     table->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
     show();
 }
