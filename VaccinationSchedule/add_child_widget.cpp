@@ -49,8 +49,8 @@ AddChildWidget::AddChildWidget(QDateEditDelegate *delegate,
     grid_main_lay->addLayout(calendar_vlay, 0, 1);
 
     QGroupBox *grb_vaccine{new QGroupBox("Вакцина")};
-    radio1 = new QRadioButton("Репозиторий:");                  //toggled if adding vaccine from repository
-    radio2 = new QRadioButton("Произвольный ввод:");            //toggled if adding custom vaccine's data
+    radio1 = new QRadioButton("Наличие:");                      //toggled if adding vaccine from repository
+    radio2 = new QRadioButton("Ручной ввод:");                  //toggled if adding custom vaccine's data
 
     comb_vacc_repository = new QComboBox;
     comb_vacc_settings = new QComboBox;

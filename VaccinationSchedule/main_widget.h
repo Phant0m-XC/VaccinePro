@@ -13,7 +13,6 @@
 #include <QMenu>
 #include <QTabWidget>
 #include <QVBoxLayout>
-//#include <QStyleFactory>
 
 /*Main Widget*/
 

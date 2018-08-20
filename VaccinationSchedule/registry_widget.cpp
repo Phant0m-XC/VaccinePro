@@ -139,12 +139,12 @@ void RegistryWidget::printDoc()
             "</h3>"
             "<table border=1 cellpadding=0 cellspacing=0 style=border-collapse:collapse align=center>"
             "<tr>"
-            "<th>Вакцина</th>"
             "<th>Название</th>"
+            "<th>Торговое название</th>"
             "<th>Серия</th>"
-            "<th>Страна производителя</th>"
+            "<th>Страна изготовитель</th>"
             "<th>Срок годности</th>"
-            "<th>Дата проведения</th>"
+            "<th>Дата выполнения</th>"
             "</tr>";
     QList<Vaccine> *vaccines{child->getDataList()};
     for(int i{0}; i < vaccines->count(); ++i) {
