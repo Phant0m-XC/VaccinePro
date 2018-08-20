@@ -7,7 +7,7 @@
 #include <QAbstractTableModel>
 #include <QRegularExpression>
 
-class ScheduleModel : public QAbstractTableModel
+class ScheduleModel: public QAbstractTableModel
 {
     QList<ChildModel> *schedule_child;
     QList<Vaccine> *schedule_vaccine;
@@ -26,20 +26,20 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
 
     //return data for item of table
-    QVariant data(QModelIndex const&, int role = Qt::DisplayRole) const;
+    QVariant data(QModelIndex const &, int role = Qt::DisplayRole) const;
 
     //remove rows from table
-    bool removeRows(int, int, QModelIndex const&);
+    bool removeRows(int, int, QModelIndex const &);
 
     //return itemflags for table view
-    Qt::ItemFlags flags(QModelIndex const&) const;
+    Qt::ItemFlags flags(QModelIndex const &) const;
 
     //calculate the list of children to be vaccinated
-    void calculateSchedule(QDate const&, ChildrenModel*, SettingsModel*);
+    void calculateSchedule(QDate const &, ChildrenModel *, SettingsModel *);
 
 private:
     //calculate age of child
-    int calculateAge(QDate const&, QDate const&) const;
+    int calculateAge(QDate const &, QDate const &) const;
 };
 
 #endif // SCHEDULE_MODEL_H

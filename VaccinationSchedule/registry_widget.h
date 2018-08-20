@@ -35,7 +35,7 @@ class RegistryWidget: public QWidget
 
 public:
     explicit RegistryWidget(QWidget *parent = nullptr);
-    void setModel(ChildrenModel*);
+    void setModel(ChildrenModel *);
 
 signals:
     void showAddChildWidget();      //signal for show add child widget
@@ -44,7 +44,7 @@ signals:
 
 private slots:
     void removeItem();              //remove selected row from table
-    void addChild(ChildModel&);     //add child to children model
+    void addChild(ChildModel &);    //add child to children model
     void clearSearch();             //clear search fields
     void printDoc();                //print child's vaccines data
 

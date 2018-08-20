@@ -8,7 +8,7 @@ VaccinesModel::VaccinesModel(QObject *parent): QAbstractTableModel(parent)
 
 VaccinesModel::~VaccinesModel()
 {
-    if(vaccines_repository){
+    if(vaccines_repository) {
         if(!vaccines_repository->isEmpty())
             vaccines_repository->clear();
         delete vaccines_repository;
@@ -35,7 +35,7 @@ QVariant VaccinesModel::headerData(int section, Qt::Orientation orientation, int
 {
     if(orientation == Qt::Horizontal)
         if(role == Qt::DisplayRole)
-            switch(section){
+            switch(section) {
             case 0:
                 return "Название";
             case 1:
@@ -56,10 +56,10 @@ QVariant VaccinesModel::data(QModelIndex const &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
-    switch(role){
+    switch(role) {
     case Qt::DisplayRole:
     case Qt::EditRole:
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
             return vaccines_repository->at(index.row()).getName();
         case 1:
@@ -89,21 +89,21 @@ bool VaccinesModel::setData(QModelIndex const &index, QVariant const &value, int
     if(!index.isValid())
         return false;
     if(role == Qt::EditRole)
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
-            const_cast<Vaccine&>(vaccines_repository->at(index.row())).setName(value.toString());
+            const_cast<Vaccine &>(vaccines_repository->at(index.row())).setName(value.toString());
             break;
         case 1:
-            const_cast<Vaccine&>(vaccines_repository->at(index.row())).setTradeName(value.toString());
+            const_cast<Vaccine &>(vaccines_repository->at(index.row())).setTradeName(value.toString());
             break;
         case 2:
-            const_cast<Vaccine&>(vaccines_repository->at(index.row())).setSerial(value.toString());
+            const_cast<Vaccine &>(vaccines_repository->at(index.row())).setSerial(value.toString());
             break;
         case 3:
-            const_cast<Vaccine&>(vaccines_repository->at(index.row())).setCountry(value.toString());
+            const_cast<Vaccine &>(vaccines_repository->at(index.row())).setCountry(value.toString());
             break;
         case 4:
-            const_cast<Vaccine&>(vaccines_repository->at(index.row())).setBestBefore(value.toDate());
+            const_cast<Vaccine &>(vaccines_repository->at(index.row())).setBestBefore(value.toDate());
             break;
         }
     return true;
@@ -156,7 +156,7 @@ void VaccinesModel::fillVaccinesRepository(QDomDocument const &dom_doc)
 void VaccinesModel::loadData()
 {
     QDomDocument dom_doc;
-    if(file_vaccines_repository->open(QIODevice::ReadOnly)){
+    if(file_vaccines_repository->open(QIODevice::ReadOnly)) {
         dom_doc.setContent(file_vaccines_repository);
         fillVaccinesRepository(dom_doc);
         file_vaccines_repository->close();

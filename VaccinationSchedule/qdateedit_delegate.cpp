@@ -5,7 +5,7 @@ QDateEditDelegate::QDateEditDelegate(QObject *parent): QStyledItemDelegate(paren
 
 }
 
-QWidget* QDateEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem const &option, QModelIndex const &index) const
+QWidget * QDateEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem const &option, QModelIndex const &index) const
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
@@ -15,12 +15,12 @@ QWidget* QDateEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem c
 
 void QDateEditDelegate::setEditorData(QWidget *editor, QModelIndex const &index) const
 {
-    QDateEdit *date_edit{static_cast<QDateEdit*>(editor)};
+    QDateEdit *date_edit{static_cast<QDateEdit *>(editor)};
     date_edit->setDate(index.model()->data(index).toDate());
 }
 
 void QDateEditDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, QModelIndex const &index) const
 {
-    QDateEdit *date_edit{static_cast<QDateEdit*>(editor)};
+    QDateEdit *date_edit{static_cast<QDateEdit *>(editor)};
     model->setData(index, date_edit->date());
 }

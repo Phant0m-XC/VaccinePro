@@ -1,5 +1,4 @@
 #include "add_child_widget.h"
-#include <QDebug>
 
 AddChildWidget::AddChildWidget(QDateEditDelegate *delegate,
                                VaccinesModel *vaccines_model,
@@ -50,8 +49,8 @@ AddChildWidget::AddChildWidget(QDateEditDelegate *delegate,
     grid_main_lay->addLayout(calendar_vlay, 0, 1);
 
     QGroupBox *grb_vaccine{new QGroupBox("Вакцина")};
-    radio1 = new QRadioButton("Репозиторий:");          //toggled if adding vaccine from repository
-    radio2 = new QRadioButton("Произвольный ввод:");    //toggled if adding custom vaccine's data
+    radio1 = new QRadioButton("Репозиторий:");                  //toggled if adding vaccine from repository
+    radio2 = new QRadioButton("Произвольный ввод:");            //toggled if adding custom vaccine's data
 
     comb_vacc_repository = new QComboBox;
     comb_vacc_settings = new QComboBox;
@@ -155,15 +154,15 @@ void AddChildWidget::showEditWidget(QModelIndex index)
     isEditMode = true;
     comb_vacc_repository->setCurrentIndex(0);
     comb_vacc_settings->setCurrentIndex(0);
-    QAbstractItemModel *item_model{const_cast<QAbstractItemModel*>(index.model())};
-    ProxySearchModel *proxy_model{static_cast<ProxySearchModel*>(item_model)};
+    QAbstractItemModel *item_model{const_cast<QAbstractItemModel *>(index.model())};
+    ProxySearchModel *proxy_model{static_cast<ProxySearchModel *>(item_model)};
     QModelIndex source_index{proxy_model->mapToSource(index)};
-    ChildrenModel *children{static_cast<ChildrenModel*>(proxy_model->sourceModel())};
+    ChildrenModel *children{static_cast<ChildrenModel *>(proxy_model->sourceModel())};
     int row{source_index.row()};
     ChildModel const *child{children->getModel(row)};
-    model = const_cast<ChildModel*>(child);
+    model = const_cast<ChildModel *>(child);
     table->setModel(model);
-    mapper->setModel(const_cast<QAbstractItemModel*>(source_index.model()));
+    mapper->setModel(const_cast<QAbstractItemModel *>(source_index.model()));
     mapper->addMapping(txt_l_name, 0);
     mapper->addMapping(txt_f_name, 1);
     mapper->addMapping(txt_m_name, 2);
@@ -176,7 +175,7 @@ void AddChildWidget::showEditWidget(QModelIndex index)
 void AddChildWidget::radioButtonChange(bool value)
 {
     Q_UNUSED(value)
-    if(radio1->isChecked()){
+    if(radio1->isChecked()) {
         comb_vacc_repository->setEnabled(true);
         comb_vacc_settings->setEnabled(false);
         lbl_name->setEnabled(false);
@@ -189,24 +188,25 @@ void AddChildWidget::radioButtonChange(bool value)
         txt_country->setEnabled(false);
         best_before->setEnabled(false);
     }
-    else if(radio2->isChecked()){
-        comb_vacc_repository->setEnabled(false);
-        comb_vacc_settings->setEnabled(true);
-        lbl_name->setEnabled(true);
-        lbl_trade_name->setEnabled(true);
-        lbl_serial->setEnabled(true);
-        lbl_country->setEnabled(true);
-        lbl_best_before->setEnabled(true);
-        txt_trade_name->setEnabled(true);
-        txt_serial->setEnabled(true);
-        txt_country->setEnabled(true);
-        best_before->setEnabled(true);
-    }
+    else
+        if(radio2->isChecked()) {
+            comb_vacc_repository->setEnabled(false);
+            comb_vacc_settings->setEnabled(true);
+            lbl_name->setEnabled(true);
+            lbl_trade_name->setEnabled(true);
+            lbl_serial->setEnabled(true);
+            lbl_country->setEnabled(true);
+            lbl_best_before->setEnabled(true);
+            txt_trade_name->setEnabled(true);
+            txt_serial->setEnabled(true);
+            txt_country->setEnabled(true);
+            best_before->setEnabled(true);
+        }
 }
 
 void AddChildWidget::addVaccine()
 {
-    if(radio1->isChecked()){
+    if(radio1->isChecked()) {
         QStringList list{comb_vacc_repository->currentData().toStringList()};
         QString name{list.at(0)};
         QString trade_name{list.at(1)};
@@ -217,21 +217,22 @@ void AddChildWidget::addVaccine()
         model->insertVaccine(name, trade_name, serial, country, best_before_value, date_value);
         comb_vacc_repository->setCurrentIndex(0);
     }
-    else if(radio2->isChecked()){
-        QString name{comb_vacc_settings->currentText()};
-        QString trade_name{txt_trade_name->text()};
-        QString serial{txt_serial->text()};
-        QString country{txt_country->text()};
-        QDate best_before_value{best_before->date()};
-        QDate date_value{vaccination_date->date()};
-        model->insertVaccine(name, trade_name, serial, country, best_before_value, date_value);
-        comb_vacc_settings->setCurrentIndex(0);
-        txt_trade_name->clear();
-        txt_serial->clear();
-        txt_country->clear();
-        best_before->setDate(QDate::currentDate());
-        vaccination_date->setDate(QDate::currentDate());
-    }
+    else
+        if(radio2->isChecked()) {
+            QString name{comb_vacc_settings->currentText()};
+            QString trade_name{txt_trade_name->text()};
+            QString serial{txt_serial->text()};
+            QString country{txt_country->text()};
+            QDate best_before_value{best_before->date()};
+            QDate date_value{vaccination_date->date()};
+            model->insertVaccine(name, trade_name, serial, country, best_before_value, date_value);
+            comb_vacc_settings->setCurrentIndex(0);
+            txt_trade_name->clear();
+            txt_serial->clear();
+            txt_country->clear();
+            best_before->setDate(QDate::currentDate());
+            vaccination_date->setDate(QDate::currentDate());
+        }
 }
 
 void AddChildWidget::removeVaccine()
@@ -244,14 +245,14 @@ void AddChildWidget::removeVaccine()
 
 void AddChildWidget::addChild()
 {
-    if(txt_l_name->text().isEmpty() || txt_f_name->text().isEmpty()){
+    if(txt_l_name->text().isEmpty() || txt_f_name->text().isEmpty()) {
         QMessageBox message(QMessageBox::Information, "Внимание", "Заполните поля \"Фамилия\" и \"Имя\"");
         message.exec();
         return;
     }
     if(isEditMode)
         mapper->submit();
-    else{
+    else {
         model->setLastName(txt_l_name->text());
         model->setFirstName(txt_f_name->text());
         model->setMiddleName(txt_m_name->text());

@@ -57,10 +57,10 @@ class AddChildWidget: public QDialog
 
 public:
     QDataWidgetMapper *mapper;                      //show data in appropriate widget
-    explicit AddChildWidget(QDateEditDelegate*, VaccinesModel*, SettingsModel*, QWidget *parent = nullptr);
+    explicit AddChildWidget(QDateEditDelegate *, VaccinesModel *, SettingsModel *, QWidget *parent = nullptr);
 
 signals:
-    void applyChild(ChildModel&);
+    void applyChild(ChildModel &);
 
 private slots:
     void showWidget();                  //show widget in mode "add new data"

@@ -58,7 +58,7 @@ void VaccinesSettingsWidget::setModel(SettingsModel *value)
 
 void VaccinesSettingsWidget::addItem()
 {
-    if(txt_name->text().isEmpty() || txt_mult->text().isEmpty()){
+    if(txt_name->text().isEmpty() || txt_mult->text().isEmpty()) {
         QMessageBox message(QMessageBox::Information, "Внимание", "Заполните все поля");
         message.exec();
         return;

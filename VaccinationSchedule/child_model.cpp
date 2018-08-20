@@ -1,6 +1,6 @@
 #include "child_model.h"
 
-ChildModel::ChildModel(QObject *parent) : QAbstractTableModel(parent)
+ChildModel::ChildModel(QObject *parent): QAbstractTableModel(parent)
 {
     vaccines = new QList<Vaccine>;
 }
@@ -22,7 +22,7 @@ ChildModel::ChildModel(ChildModel const &child)
         vaccines->push_back(vaccine);
 }
 
-ChildModel& ChildModel::operator=(ChildModel const &child)
+ChildModel & ChildModel::operator=(ChildModel const &child)
 {
     if(this == &child)
         return *this;
@@ -30,7 +30,7 @@ ChildModel& ChildModel::operator=(ChildModel const &child)
     middle_name = child.middle_name;
     last_name = child.last_name;
     birthday = child.birthday;
-    if(vaccines){
+    if(vaccines) {
         if(!vaccines->isEmpty())
             vaccines->clear();
         delete vaccines;
@@ -43,7 +43,7 @@ ChildModel& ChildModel::operator=(ChildModel const &child)
 
 ChildModel::~ChildModel()
 {
-    if(vaccines){
+    if(vaccines) {
         if(!vaccines->isEmpty())
             vaccines->clear();
         delete vaccines;
@@ -106,7 +106,7 @@ QVariant ChildModel::headerData(int section, Qt::Orientation orientation, int ro
 {
     if(orientation == Qt::Horizontal)
         if(role == Qt::DisplayRole)
-            switch(section){
+            switch(section) {
             case 0:
                 return "Название";
             case 1:
@@ -129,10 +129,10 @@ QVariant ChildModel::data(QModelIndex const &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
-    switch(role){
+    switch(role) {
     case Qt::DisplayRole:
     case Qt::EditRole:
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
             return vaccines->at(index.row()).getName();
         case 1:
@@ -158,24 +158,24 @@ bool ChildModel::setData(QModelIndex const &index, QVariant const &value, int ro
     if(!index.isValid())
         return false;
     if(role == Qt::EditRole)
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setName(value.toString());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setName(value.toString());
             break;
         case 1:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setTradeName(value.toString());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setTradeName(value.toString());
             break;
         case 2:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setSerial(value.toString());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setSerial(value.toString());
             break;
         case 3:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setCountry(value.toString());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setCountry(value.toString());
             break;
         case 4:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setBestBefore(value.toDate());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setBestBefore(value.toDate());
             break;
         case 5:
-            const_cast<Vaccine&>(vaccines->at(index.row())).setVaccinationDate(value.toDate());
+            const_cast<Vaccine &>(vaccines->at(index.row())).setVaccinationDate(value.toDate());
             break;
         }
     return true;
@@ -214,7 +214,7 @@ void ChildModel::insertVaccine(QString const &name, QString const &trade_name, Q
     endInsertRows();
 }
 
-QList<Vaccine>* ChildModel::getDataList() const
+QList<Vaccine> * ChildModel::getDataList() const
 {
     return vaccines;
 }

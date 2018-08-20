@@ -8,7 +8,7 @@
 #include <QTextStream>
 #include <QDate>
 
-class ChildrenModel : public QAbstractTableModel
+class ChildrenModel: public QAbstractTableModel
 {
     Q_OBJECT
 
@@ -17,9 +17,9 @@ class ChildrenModel : public QAbstractTableModel
 
 public:
     explicit ChildrenModel(QObject *parent = nullptr);
-    ChildrenModel(ChildrenModel const&) = delete;
-    ChildrenModel(ChildrenModel&&) = delete;
-    ChildrenModel& operator=(ChildrenModel const&) = delete;
+    ChildrenModel(ChildrenModel const &) = delete;
+    ChildrenModel(ChildrenModel &&) = delete;
+    ChildrenModel & operator=(ChildrenModel const &) = delete;
     virtual ~ChildrenModel();
 
     //return count of childrens
@@ -32,29 +32,29 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
 
     //return data for each field of child
-    QVariant data(QModelIndex const&, int role = Qt::DisplayRole) const;
+    QVariant data(QModelIndex const &, int role = Qt::DisplayRole) const;
 
     //set data for each field of child
-    bool setData(QModelIndex const&, QVariant const&, int role = Qt::EditRole);
+    bool setData(QModelIndex const &, QVariant const &, int role = Qt::EditRole);
 
     //remove child from children repository
-    bool removeRows(int, int, QModelIndex const&);
+    bool removeRows(int, int, QModelIndex const &);
 
     //return itemflags for table view
-    Qt::ItemFlags flags(QModelIndex const&) const;
+    Qt::ItemFlags flags(QModelIndex const &) const;
 
     //insert child to children repository
-    void insertData(ChildModel&);
+    void insertData(ChildModel &);
 
     //get children repository
-    QList<ChildModel>* getDataList() const;
+    QList<ChildModel> * getDataList() const;
 
     //get child by index
-    ChildModel const* getModel(int);
+    ChildModel const * getModel(int);
 
 private:
     //parse xml domdocmodel and fill field each child
-    void fillChildren(QDomDocument const&);
+    void fillChildren(QDomDocument const &);
 
 private slots:
     //load data from file

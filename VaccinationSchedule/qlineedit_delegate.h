@@ -12,13 +12,13 @@ class QLineEditDelegate: public QStyledItemDelegate
 
 public:
     QLineEditDelegate(QObject *parent = nullptr);
-    QWidget* createEditor(QWidget*, QStyleOptionViewItem const&, QModelIndex const&) const;
+    QWidget * createEditor(QWidget *, QStyleOptionViewItem const &, QModelIndex const &) const;
 
     //put data in widget
-    void setEditorData(QWidget*, QModelIndex const&) const;
+    void setEditorData(QWidget *, QModelIndex const &) const;
 
     //save data to model
-    void setModelData(QWidget*, QAbstractItemModel*, QModelIndex const&) const;
+    void setModelData(QWidget *, QAbstractItemModel *, QModelIndex const &) const;
 };
 
 #endif // QLINEEDIT_DELEGATE_H

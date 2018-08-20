@@ -1,6 +1,6 @@
 #include "settings_model.h"
 
-SettingsModel::SettingsModel(QObject *parent) : QAbstractTableModel(parent)
+SettingsModel::SettingsModel(QObject *parent): QAbstractTableModel(parent)
 {
     vaccines_settings = new QList<Vaccine>;
     file_vaccines_settings = new QFile(QString("settings.xml"));
@@ -8,7 +8,7 @@ SettingsModel::SettingsModel(QObject *parent) : QAbstractTableModel(parent)
 
 SettingsModel::~SettingsModel()
 {
-    if(vaccines_settings){
+    if(vaccines_settings) {
         if(!vaccines_settings->isEmpty())
             vaccines_settings->clear();
         delete vaccines_settings;
@@ -35,7 +35,7 @@ QVariant SettingsModel::headerData(int section, Qt::Orientation orientation, int
 {
     if(orientation == Qt::Horizontal)
         if(role == Qt::DisplayRole)
-            switch(section){
+            switch(section) {
             case 0:
                 return "Название";
             case 1:
@@ -50,7 +50,7 @@ QVariant SettingsModel::data(QModelIndex const &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
-    switch(role){
+    switch(role) {
     case Qt::DisplayRole:
     case Qt::EditRole:
         if(index.column() == 0)
@@ -68,10 +68,10 @@ bool SettingsModel::setData(QModelIndex const &index, QVariant const &value, int
         return false;
     if(role == Qt::EditRole)
         if(index.column() == 0)
-            const_cast<Vaccine&>(vaccines_settings->at(index.row())).setName(value.toString());
+            const_cast<Vaccine &>(vaccines_settings->at(index.row())).setName(value.toString());
         else
             if(index.column() == 1)
-                const_cast<Vaccine&>(vaccines_settings->at(index.row())).setMult(value.toString());
+                const_cast<Vaccine &>(vaccines_settings->at(index.row())).setMult(value.toString());
     return true;
 }
 
@@ -103,7 +103,7 @@ void SettingsModel::insertData(QString const &name, QString const &mult)
     endInsertRows();
 }
 
-QList<Vaccine>* SettingsModel::getDataList() const
+QList<Vaccine> * SettingsModel::getDataList() const
 {
     return vaccines_settings;
 }
@@ -112,7 +112,7 @@ void SettingsModel::fillVaccinesSettings(QDomDocument const &dom_doc)
 {
     QDomElement dom_element{dom_doc.documentElement()};
     QDomNode node{dom_element.firstChild()};
-    while(!node.isNull()){
+    while(!node.isNull()) {
         Vaccine vaccine;
         QString mult;
         if(node.isElement())
@@ -129,7 +129,7 @@ void SettingsModel::fillVaccinesSettings(QDomDocument const &dom_doc)
 void SettingsModel::loadData()
 {
     QDomDocument dom_doc;
-    if(file_vaccines_settings->open(QIODevice::ReadOnly)){
+    if(file_vaccines_settings->open(QIODevice::ReadOnly)) {
         dom_doc.setContent(file_vaccines_settings);
         fillVaccinesSettings(dom_doc);
         if(vaccines_settings->isEmpty())
@@ -144,7 +144,7 @@ void SettingsModel::saveVaccinesSettings() const
 {
     QDomDocument doc("settings");
     QDomElement dom_root{doc.createElement("settings")};
-    for(Vaccine vaccine : *vaccines_settings){
+    for(Vaccine vaccine : *vaccines_settings) {
         QDomElement dom_element{doc.createElement("vaccine")};
         dom_element.setAttribute("name", vaccine.getName());
         QDomElement mult{doc.createElement("mult")};
@@ -155,7 +155,7 @@ void SettingsModel::saveVaccinesSettings() const
     }
     doc.appendChild(dom_root);
 
-    if(file_vaccines_settings->open(QIODevice::WriteOnly | QIODevice::Truncate)){
+    if(file_vaccines_settings->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         QTextStream text_stream(file_vaccines_settings);
         text_stream.setCodec("UTF-8");
         text_stream << doc.toString();

@@ -8,7 +8,7 @@ ChildrenModel::ChildrenModel(QObject *parent): QAbstractTableModel(parent)
 
 ChildrenModel::~ChildrenModel()
 {
-    if(children){
+    if(children) {
         if(!children->isEmpty())
             children->clear();
         delete children;
@@ -35,7 +35,7 @@ QVariant ChildrenModel::headerData(int section, Qt::Orientation orientation, int
 {
     if(orientation == Qt::Horizontal)
         if(role == Qt::DisplayRole)
-            switch(section){
+            switch(section) {
             case 0:
                 return "Фамилия";
             case 1:
@@ -54,10 +54,10 @@ QVariant ChildrenModel::data(QModelIndex const &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
-    switch(role){
+    switch(role) {
     case Qt::DisplayRole:
     case Qt::EditRole:
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
             return children->at(index.row()).getLastName();
         case 1:
@@ -79,18 +79,18 @@ bool ChildrenModel::setData(QModelIndex const &index, QVariant const &value, int
     if(!index.isValid())
         return false;
     if(role == Qt::EditRole)
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
-            const_cast<ChildModel&>(children->at(index.row())).setLastName(value.toString());
+            const_cast<ChildModel &>(children->at(index.row())).setLastName(value.toString());
             break;
         case 1:
-            const_cast<ChildModel&>(children->at(index.row())).setFirstName(value.toString());
+            const_cast<ChildModel &>(children->at(index.row())).setFirstName(value.toString());
             break;
         case 2:
-            const_cast<ChildModel&>(children->at(index.row())).setMiddleName(value.toString());
+            const_cast<ChildModel &>(children->at(index.row())).setMiddleName(value.toString());
             break;
         case 3:
-            const_cast<ChildModel&>(children->at(index.row())).setBirthday(value.toDate());
+            const_cast<ChildModel &>(children->at(index.row())).setBirthday(value.toDate());
             break;
         }
     return true;
@@ -121,12 +121,12 @@ void ChildrenModel::insertData(ChildModel &child)
     endInsertRows();
 }
 
-QList<ChildModel>* ChildrenModel::getDataList() const
+QList<ChildModel> * ChildrenModel::getDataList() const
 {
     return children;
 }
 
-ChildModel const* ChildrenModel::getModel(int row)
+ChildModel const * ChildrenModel::getModel(int row)
 {
     return &children->at(row);
 }
@@ -135,7 +135,7 @@ void ChildrenModel::fillChildren(QDomDocument const &dom_doc)
 {
     QDomElement dom_element{dom_doc.documentElement()};
     QDomNode child_node{dom_element.firstChild()};
-    while(!child_node.isNull()){
+    while(!child_node.isNull()) {
         ChildModel child;
         if(child_node.isElement())
             dom_element = child_node.toElement();
@@ -149,7 +149,7 @@ void ChildrenModel::fillChildren(QDomDocument const &dom_doc)
         inner_node = dom_element.nextSibling();
         if(inner_node.isElement())
             dom_element = inner_node.toElement();
-        while(dom_element.tagName() == "vaccine"){
+        while(dom_element.tagName() == "vaccine") {
             QString name{dom_element.attribute("name")};
             QDomNode vaccine_node{dom_element.firstChild()};
             if(vaccine_node.isElement())
@@ -172,7 +172,7 @@ void ChildrenModel::fillChildren(QDomDocument const &dom_doc)
 void ChildrenModel::loadData()
 {
     QDomDocument dom_doc;
-    if(file_children->open(QIODevice::ReadOnly)){
+    if(file_children->open(QIODevice::ReadOnly)) {
         dom_doc.setContent(file_children);
         fillChildren(dom_doc);
         file_children->close();
@@ -183,7 +183,7 @@ void ChildrenModel::saveChildren() const
 {
     QDomDocument doc("children");
     QDomElement dom_root{doc.createElement("children")};
-    for(ChildModel child : *children){
+    for(ChildModel child : *children) {
         QDomElement dom_element{doc.createElement("child")};
         dom_element.setAttribute("last_name", child.getLastName());
         dom_element.setAttribute("first_name", child.getFirstName());
@@ -193,7 +193,7 @@ void ChildrenModel::saveChildren() const
         birthday.appendChild(birthday_value);
         dom_element.appendChild(birthday);
 
-        for(int i{0}; i < child.rowCount(); ++i){
+        for(int i{0}; i < child.rowCount(); ++i) {
             QDomElement vaccine{doc.createElement("vaccine")};
             vaccine.setAttribute("name", child.data(createIndex(i, 0)).toString());
 
@@ -228,7 +228,7 @@ void ChildrenModel::saveChildren() const
     }
     doc.appendChild(dom_root);
 
-    if(file_children->open(QIODevice::WriteOnly | QIODevice::Truncate)){
+    if(file_children->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
         QTextStream text_stream(file_children);
         text_stream.setCodec("UTF-8");
         text_stream << doc.toString();

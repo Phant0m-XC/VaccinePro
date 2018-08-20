@@ -1,5 +1,5 @@
-#ifndef SETTINGSCONTROLLER_H
-#define SETTINGSCONTROLLER_H
+#ifndef SETTINGS_MODEL_H
+#define SETTINGS_MODEL_H
 
 #include "vaccine.h"
 #include <QAbstractTableModel>
@@ -7,7 +7,7 @@
 #include <QDomDocument>
 #include <QTextStream>
 
-class SettingsModel : public QAbstractTableModel
+class SettingsModel: public QAbstractTableModel
 {
     Q_OBJECT
 
@@ -16,9 +16,9 @@ class SettingsModel : public QAbstractTableModel
 
 public:
     explicit SettingsModel(QObject *parent = nullptr);
-    SettingsModel(SettingsModel const&) = delete;
-    SettingsModel(SettingsModel&&) = delete;
-    SettingsModel& operator=(SettingsModel const&) = delete;
+    SettingsModel(SettingsModel const &) = delete;
+    SettingsModel(SettingsModel &&) = delete;
+    SettingsModel& operator=(SettingsModel const &) = delete;
     virtual ~SettingsModel();
 
     //return count of vaccines in settings
@@ -31,26 +31,26 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
 
     //return data for item of table
-    QVariant data(QModelIndex const&, int role = Qt::DisplayRole) const;
+    QVariant data(QModelIndex const &, int role = Qt::DisplayRole) const;
 
     //set data for field of vaccines settings
-    bool setData(QModelIndex const&, QVariant const&, int role = Qt::EditRole);
+    bool setData(QModelIndex const &, QVariant const &, int role = Qt::EditRole);
 
     //remove vaccine from vaccines settings
-    bool removeRows(int, int, QModelIndex const&);
+    bool removeRows(int, int, QModelIndex const &);
 
     //return itemflags for table view
-    Qt::ItemFlags flags(QModelIndex const&) const;
+    Qt::ItemFlags flags(QModelIndex const &) const;
 
     //insert vaccine in vaccines settings
-    void insertData(QString const&, QString const&);
+    void insertData(QString const &, QString const &);
 
     //get vaccines settings
-    QList<Vaccine>* getDataList() const;
+    QList<Vaccine> * getDataList() const;
 
 private:
     //parse xml domdocmodel and fill vaccines settings
-    void fillVaccinesSettings(QDomDocument const&);
+    void fillVaccinesSettings(QDomDocument const &);
 
 signals:
     //if settings empty
@@ -65,4 +65,4 @@ private slots:
 
 };
 
-#endif // SETTINGSCONTROLLER_H
+#endif // SETTINGS_MODEL_H

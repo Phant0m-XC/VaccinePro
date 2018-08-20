@@ -16,9 +16,9 @@ class VaccinesModel: public QAbstractTableModel
 
 public:
     explicit VaccinesModel(QObject *parent = nullptr);
-    VaccinesModel(VaccinesModel const&) = delete;
-    VaccinesModel(VaccinesModel&&) = delete;
-    VaccinesModel& operator=(VaccinesModel const&) = delete;
+    VaccinesModel(VaccinesModel const &) = delete;
+    VaccinesModel(VaccinesModel &&) = delete;
+    VaccinesModel & operator=(VaccinesModel const &) = delete;
     virtual ~VaccinesModel();
 
     //return count of vaccines
@@ -31,23 +31,23 @@ public:
     QVariant headerData(int, Qt::Orientation, int) const;
 
     //return data for each field of vaccine
-    QVariant data(QModelIndex const&, int role = Qt::DisplayRole) const;
+    QVariant data(QModelIndex const &, int role = Qt::DisplayRole) const;
 
     //set data for each field of vaccine
-    bool setData(QModelIndex const&, QVariant const&, int role = Qt::EditRole);
+    bool setData(QModelIndex const &, QVariant const &, int role = Qt::EditRole);
 
     //remove vaccine from vaccines repository
-    bool removeRows(int, int, QModelIndex const&);
+    bool removeRows(int, int, QModelIndex const &);
 
     //return itemflags for table view
-    Qt::ItemFlags flags(QModelIndex const&) const;
+    Qt::ItemFlags flags(QModelIndex const &) const;
 
     //insert vaccine in vaccines repository
-    void insertData(Vaccine&);
+    void insertData(Vaccine &);
 
 private:
     //parse xml domdocmodel and fill field each vaccine
-    void fillVaccinesRepository(QDomDocument const&);
+    void fillVaccinesRepository(QDomDocument const &);
 
 private slots:
     //load data from file

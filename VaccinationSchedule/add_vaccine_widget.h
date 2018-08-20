@@ -28,10 +28,10 @@ class AddVaccineWidget: public QDialog
 
 public:
     QDataWidgetMapper *mapper;                  //show data in appropriate widget
-    explicit AddVaccineWidget(SettingsModel*, QWidget *parent = nullptr);
+    explicit AddVaccineWidget(SettingsModel *, QWidget *parent = nullptr);
 
 signals:
-    void applyVaccine(Vaccine&);
+    void applyVaccine(Vaccine &);
 
 private slots:
     void showWidget();                      //show widget in mode "add new data"

@@ -43,9 +43,9 @@ void VaccinesWidget::removeItem()
 {
     QModelIndexList indexes{table->selectionModel()->selectedRows()};
     int count_rows{indexes.count()};
-    for(int i{0}; i < count_rows; ++i){
-        QAbstractItemModel *item_model{const_cast<QAbstractItemModel*>(indexes.at(i).model())};
-        QSortFilterProxyModel *proxy_model{static_cast<QSortFilterProxyModel*>(item_model)};
+    for(int i{0}; i < count_rows; ++i) {
+        QAbstractItemModel *item_model{const_cast<QAbstractItemModel *>(indexes.at(i).model())};
+        QSortFilterProxyModel *proxy_model{static_cast<QSortFilterProxyModel *>(item_model)};
         QModelIndex source_index{proxy_model->mapToSource(indexes.at(i))};
         int row{source_index.row()};
         model->removeRows(row, count_rows, QModelIndex());

@@ -1,6 +1,6 @@
 #include "schedule_model.h"
 
-ScheduleModel::ScheduleModel(QObject *parent) : QAbstractTableModel(parent)
+ScheduleModel::ScheduleModel(QObject *parent): QAbstractTableModel(parent)
 {
     schedule_child = new QList<ChildModel>;
     schedule_vaccine = new QList<Vaccine>;
@@ -8,12 +8,12 @@ ScheduleModel::ScheduleModel(QObject *parent) : QAbstractTableModel(parent)
 
 ScheduleModel::~ScheduleModel()
 {
-    if(schedule_child){
+    if(schedule_child) {
         if(!schedule_child->isEmpty())
             schedule_child->clear();
         delete schedule_child;
     }
-    if(schedule_vaccine){
+    if(schedule_vaccine) {
         if(!schedule_vaccine->isEmpty())
             schedule_vaccine->clear();
         delete schedule_vaccine;
@@ -36,7 +36,7 @@ QVariant ScheduleModel::headerData(int section, Qt::Orientation orientation, int
 {
     if(orientation == Qt::Horizontal)
         if(role == Qt::DisplayRole)
-            switch(section){
+            switch(section) {
             case 0:
                 return "Фамилия";
             case 1:
@@ -55,9 +55,9 @@ QVariant ScheduleModel::data(QModelIndex const &index, int role) const
 {
     if(!index.isValid())
         return QVariant();
-    switch(role){
+    switch(role) {
     case Qt::DisplayRole:
-        switch(index.column()){
+        switch(index.column()) {
         case 0:
             return schedule_child->at(index.row()).getLastName();
         case 1:
@@ -78,7 +78,7 @@ bool ScheduleModel::removeRows(int position, int rows, QModelIndex const &index)
 {
     Q_UNUSED(index)
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
-    for (int row{0}; row < rows; ++row){
+    for (int row{0}; row < rows; ++row) {
         schedule_child->removeAt(position);
         schedule_vaccine->removeAt(position);
     }
@@ -97,14 +97,14 @@ void ScheduleModel::calculateSchedule(QDate const &date, ChildrenModel *children
 {
     QList<ChildModel> *children{children_model->getDataList()};
     QList<Vaccine> *vaccines{settings_model->getDataList()};
-    for(ChildModel const child : *children){
+    for(ChildModel const child : *children) {
         int month_age{calculateAge(date, child.getBirthday())};
         QList<Vaccine> *child_vaccines{child.getDataList()};
-        for(Vaccine const vaccine : *vaccines){
+        for(Vaccine const vaccine : *vaccines) {
             QStringList mult_list{vaccine.getMult().split(QRegularExpression(","), QString::SplitBehavior::SkipEmptyParts)};
             int count{0};
             QDate max_date{QDate::fromString("01.01.1900", "dd.MM.yyyy")};
-            for(Vaccine const child_vaccine : *child_vaccines){
+            for(Vaccine const child_vaccine : *child_vaccines) {
                 if(vaccine.getName() == child_vaccine.getName())
                     ++count;
                 if(max_date < child_vaccine.getVaccinationDate())
@@ -112,7 +112,7 @@ void ScheduleModel::calculateSchedule(QDate const &date, ChildrenModel *children
             }
             if(mult_list.count() == count)
                 continue;
-            if(count < mult_list.count() && month_age >= mult_list[count].toInt()){
+            if(count < mult_list.count() && month_age >= mult_list[count].toInt()) {
                 int row{rowCount()};
                 beginInsertRows(QModelIndex(), row, row);
                 schedule_child->push_back(child);

@@ -17,13 +17,13 @@ public:
     explicit ProxySearchModel(QObject *parent = nullptr);
 
     //filter row (accept or not)
-    bool filterAcceptsRow(int, QModelIndex const&) const;
+    bool filterAcceptsRow(int, QModelIndex const &) const;
     QVariant headerData(int, Qt::Orientation, int) const;
 
 public slots:
-    void setLastNameFilter(QString const&);     //set regexp pattern for last name
-    void setFirstNameFilter(QString const&);    //set regexp pattern for first name
-    void setMiddleNameFilter(QString const&);   //set regexp pattern for middle name
+    void setLastNameFilter(QString const &);     //set regexp pattern for last name
+    void setFirstNameFilter(QString const &);    //set regexp pattern for first name
+    void setMiddleNameFilter(QString const &);   //set regexp pattern for middle name
 
 };
 

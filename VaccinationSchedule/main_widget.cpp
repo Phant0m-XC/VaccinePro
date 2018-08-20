@@ -1,5 +1,4 @@
 #include "main_widget.h"
-#include <QStyleFactory>
 
 MainWidget::MainWidget(QWidget *parent): QWidget(parent)
 {
@@ -52,11 +51,11 @@ MainWidget::MainWidget(QWidget *parent): QWidget(parent)
     connect(registry_widget, SIGNAL(editChild(QModelIndex)), add_child_widget, SLOT(showEditWidget(QModelIndex)));
     connect(registry_widget, SIGNAL(saveData()), this, SLOT(saveData()));
     connect(registry_widget, SIGNAL(saveData()), schedule_widget, SLOT(calculate()));
-    connect(add_child_widget, SIGNAL(applyChild(ChildModel&)), registry_widget, SLOT(addChild(ChildModel&)));
+    connect(add_child_widget, SIGNAL(applyChild(ChildModel &)), registry_widget, SLOT(addChild(ChildModel &)));
     connect(vaccines_widget, SIGNAL(showAddVaccineWidget()), add_vaccine_widget, SLOT(showWidget()));
     connect(vaccines_widget, SIGNAL(editVaccine(QModelIndex)), add_vaccine_widget, SLOT(showEditWidget(QModelIndex)));
     connect(vaccines_widget, SIGNAL(saveData()), this, SLOT(saveData()));
-    connect(add_vaccine_widget, SIGNAL(applyVaccine(Vaccine&)), vaccines_widget, SLOT(addVaccine(Vaccine&)));
+    connect(add_vaccine_widget, SIGNAL(applyVaccine(Vaccine &)), vaccines_widget, SLOT(addVaccine(Vaccine &)));
 
     emit startLoad();
 
@@ -78,19 +77,19 @@ void MainWidget::setAppStyle()
     setWindowTitle("ВакцинаПро");
     setFixedSize(QSize(500, 550));
     setWindowIcon(QIcon(":icon.png"));
-    QString style{
-        "MainWidget{background: #ccf2ff;}"
+    QString style {
+        "MainWidget {background: #ccf2ff;}"
 
-        "QDialog{background: #ccf2ff;}"
+        "QDialog {background: #ccf2ff;}"
 
-        "QMenuBar{"
+        "QMenuBar {"
         "background-color: #ccf2ff;"
         "font: bold 12px;"
         "width: 80px;"
         "padding: 3px;"
         "}"
 
-        "QMenuBar:item{"
+        "QMenuBar:item {"
         "background-color: #80dfff;"
         "border-style: outset;"
         "border-width: 1px;"
@@ -101,17 +100,17 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QMenuBar:item:selected{"
+        "QMenuBar:item:selected {"
         "background-color: #33ccff;"
         "border-style: inset;"
         "}"
 
-        "QMenuBar:item:pressed{"
+        "QMenuBar:item:pressed {"
         "background-color: #00ace6;"
         "border-style: inset;"
         "}"
 
-        "QPushButton{"
+        "QPushButton {"
         "background-color: #80dfff;"
         "border-style: outset;"
         "border-width: 2px;"
@@ -122,12 +121,12 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QPushButton:pressed{"
+        "QPushButton:pressed {"
         "background-color: #00ace6;"
         "border-style: inset;"
         "}"
 
-        "QLineEdit{"
+        "QLineEdit {"
         "background-color: white;"
         "border-style: outset;"
         "border-width: 1px;"
@@ -138,12 +137,12 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QLineEdit:disabled{"
+        "QLineEdit:disabled {"
         "background-color: #d1d1e0;"
         "border-color: #676798;"
         "}"
 
-        "QComboBox{"
+        "QComboBox {"
         "background-color: white;"
         "border-style: outset;"
         "border-width: 1px;"
@@ -155,12 +154,12 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QComboBox:disabled{"
+        "QComboBox:disabled {"
         "background-color: #d1d1e0;"
         "border-color: #676798;"
         "}"
 
-        "QComboBox:drop-down{"
+        "QComboBox:drop-down {"
         "subcontrol-origin: padding;"
         "subcontrol-position: top right;"
         "background-color: #80dfff;"
@@ -171,27 +170,27 @@ void MainWidget::setAppStyle()
         "border-bottom-right-radius: 10px;"
         "}"
 
-        "QComboBox:drop-down:pressed{"
+        "QComboBox:drop-down:pressed {"
         "background-color: #00ace6;"
         "border-style: inset;"
         "}"
 
-        "QComboBox:drop-down:disabled{"
+        "QComboBox:drop-down:disabled {"
         "background-color: #a4a4c1;"
         "border-color: #676798;"
         "}"
 
-        "QComboBox:down-arrow{"
+        "QComboBox:down-arrow {"
         "image: url(:arrow-down-enable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QComboBox:down-arrow:disabled{"
+        "QComboBox:down-arrow:disabled {"
         "image: url(:arrow-down-disable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QGroupBox{"
+        "QGroupBox {"
         "border-style: outset;"
         "border-width: 1px;"
         "border-radius: 10px;"
@@ -199,19 +198,19 @@ void MainWidget::setAppStyle()
         "margin: 5px 0px 0px 0px"
         "}"
 
-        "QGroupBox:title{"
+        "QGroupBox:title {"
         "subcontrol-origin: border;"
         "subcontrol-position: top center;"
         "margin: -13px 0px 0px 5px;"
         "}"
 
-        "QTableView{"
+        "QTableView {"
         "border-style: solid;"
         "border-width: 1px;"
         "border-color: #006080;"
         "}"
 
-        "QDateEdit{"
+        "QDateEdit {"
         "background-color: white;"
         "border-style: outset;"
         "border-width: 1px;"
@@ -223,12 +222,12 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QDateEdit:disabled{"
+        "QDateEdit:disabled {"
         "background-color: #d1d1e0;"
         "border-color: #676798;"
         "}"
 
-        "QDateEdit:up-button{"
+        "QDateEdit:up-button {"
         "subcontrol-origin: padding;"
         "subcontrol-position: top right;"
         "background-color: #80dfff;"
@@ -238,7 +237,7 @@ void MainWidget::setAppStyle()
         "border-top-right-radius: 10px;"
         "}"
 
-        "QDateEdit:down-button{"
+        "QDateEdit:down-button {"
         "subcontrol-origin: padding;"
         "subcontrol-position: bottom right;"
         "background-color: #80dfff;"
@@ -248,37 +247,37 @@ void MainWidget::setAppStyle()
         "border-bottom-right-radius: 10px;"
         "}"
 
-        "QDateEdit:up-button:pressed, QDateEdit:down-button:pressed{"
+        "QDateEdit:up-button:pressed, QDateEdit:down-button:pressed {"
         "background-color: #00ace6;"
         "border-style: inset;"
         "}"
 
-        "QDateEdit:up-button:disabled, QDateEdit:down-button:disabled{"
+        "QDateEdit:up-button:disabled, QDateEdit:down-button:disabled {"
         "background-color: #a4a4c1;"
         "border-color: #676798;"
         "}"
 
-        "QDateEdit:down-arrow{"
+        "QDateEdit:down-arrow {"
         "image: url(:arrow-down-enable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QDateEdit:up-arrow{"
+        "QDateEdit:up-arrow {"
         "image: url(:arrow-up-enable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QDateEdit:down-arrow:disabled{"
+        "QDateEdit:down-arrow:disabled {"
         "image: url(:arrow-down-disable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QDateEdit:up-arrow:disabled{"
+        "QDateEdit:up-arrow:disabled {"
         "image: url(:arrow-up-disable.png);"
         "margin: 0px 0px 0px -3px;"
         "}"
 
-        "QTabWidget:pane{"
+        "QTabWidget:pane {"
         "background-color: #ccf2ff;"
         "border-style: outset;"
         "border-width: 1px;"
@@ -289,11 +288,11 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QTabWidget:tab-bar{"
+        "QTabWidget:tab-bar {"
         "left: 8px;"
         "}"
 
-        "QTabBar:tab{"
+        "QTabBar:tab {"
         "background-color: #00bfff;"
         "width: 95px;"
         "border-style: inset;"
@@ -307,33 +306,33 @@ void MainWidget::setAppStyle()
         "padding: 3px;"
         "}"
 
-        "QTabBar:tab:hover{"
+        "QTabBar:tab:hover {"
         "border-style: outset;"
         "background-color: #4dd2ff;"
         "}"
 
-        "QTabBar:tab:selected{"
+        "QTabBar:tab:selected {"
         "border-style: outset;"
         "background-color: #80dfff;"
         "}"
 
-        "QTabBar:tab:!selected{"
+        "QTabBar:tab:!selected {"
         "margin-top: 3px;"
         "}"
 
-        "QScrollBar:horizontal, QScrollBar:vertical{"
+        "QScrollBar:horizontal, QScrollBar:vertical {"
         "background-color: #80dfff;"
         "}"
     };
     setStyleSheet(style);
 }
 
-void MainWidget::help()
+void MainWidget::help() const
 {
     //style of help dialog window
     QString style =
-            "QMessageBox{background-color: #ccf2ff;}"
-            "QPushButton{"
+            "QMessageBox {background-color: #ccf2ff;}"
+            "QPushButton {"
             "background-color: #80dfff;"
             "border-style: outset;"
             "border-width: 2px;"
@@ -343,7 +342,7 @@ void MainWidget::help()
             "min-width: 5em;"
             "padding: 3px;"
             "}"
-            "QPushButton:pressed{"
+            "QPushButton:pressed {"
             "background-color: #00ace6;"
             "border-style: inset;"
             "}";
@@ -353,12 +352,12 @@ void MainWidget::help()
     message.exec();
 }
 
-void MainWidget::saveData()
+void MainWidget::saveData() const
 {
     //style of save dialog window
     QString style =
-            "QMessageBox{background-color: #ccf2ff;}"
-            "QPushButton{"
+            "QMessageBox {background-color: #ccf2ff;}"
+            "QPushButton {"
             "background-color: #80dfff;"
             "border-style: outset;"
             "border-width: 2px;"
@@ -368,7 +367,7 @@ void MainWidget::saveData()
             "min-width: 5em;"
             "padding: 3px;"
             "}"
-            "QPushButton:pressed{"
+            "QPushButton:pressed {"
             "background-color: #00ace6;"
             "border-style: inset;"
             "}";

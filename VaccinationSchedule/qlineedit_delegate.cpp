@@ -5,7 +5,7 @@ QLineEditDelegate::QLineEditDelegate(QObject *parent): QStyledItemDelegate(paren
 
 }
 
-QWidget* QLineEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem const &option, QModelIndex const &index) const
+QWidget * QLineEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem const &option, QModelIndex const &index) const
 {
     Q_UNUSED(option)
     Q_UNUSED(index)
@@ -17,12 +17,12 @@ QWidget* QLineEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem c
 
 void QLineEditDelegate::setEditorData(QWidget *editor, QModelIndex const &index) const
 {
-    QLineEdit *line_edit{static_cast<QLineEdit*>(editor)};
+    QLineEdit *line_edit{static_cast<QLineEdit *>(editor)};
     line_edit->setText(index.model()->data(index).toString());
 }
 
 void QLineEditDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, QModelIndex const &index) const
 {
-    QLineEdit *line_edit{static_cast<QLineEdit*>(editor)};
+    QLineEdit *line_edit{static_cast<QLineEdit *>(editor)};
     model->setData(index, line_edit->text());
 }

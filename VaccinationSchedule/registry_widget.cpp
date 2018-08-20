@@ -75,9 +75,9 @@ void RegistryWidget::removeItem()
 {
     QModelIndexList indexes{table->selectionModel()->selectedRows()};
     int count_rows{indexes.count()};
-    for(int i{0}; i < count_rows; ++i){
-        QAbstractItemModel *item_model{const_cast<QAbstractItemModel*>(indexes.at(i).model())};
-        ProxySearchModel *proxy_model{static_cast<ProxySearchModel*>(item_model)};
+    for(int i{0}; i < count_rows; ++i) {
+        QAbstractItemModel *item_model{const_cast<QAbstractItemModel *>(indexes.at(i).model())};
+        ProxySearchModel *proxy_model{static_cast<ProxySearchModel *>(item_model)};
         QModelIndex source_index{proxy_model->mapToSource(indexes.at(i))};
         int row{source_index.row()};
         model->removeRows(row, count_rows, QModelIndex());
@@ -99,7 +99,7 @@ void RegistryWidget::clearSearch()
 void RegistryWidget::printDoc()
 {
     QModelIndexList indexes{table->selectionModel()->selectedRows()}; //if row not selected show warning and return
-    if(!indexes.count()){
+    if(!indexes.count()) {
         QString style =
                 "QMessageBox{background-color: #ccf2ff;}"
                 "QPushButton{"
@@ -122,10 +122,10 @@ void RegistryWidget::printDoc()
         message.exec();
         return;
     }
-    QAbstractItemModel *item_model{const_cast<QAbstractItemModel*>(indexes.at(0).model())};
-    ProxySearchModel *proxy_model{static_cast<ProxySearchModel*>(item_model)};
+    QAbstractItemModel *item_model{const_cast<QAbstractItemModel *>(indexes.at(0).model())};
+    ProxySearchModel *proxy_model{static_cast<ProxySearchModel *>(item_model)};
     QModelIndex source_index{proxy_model->mapToSource(indexes.at(0))};
-    ChildrenModel *children{static_cast<ChildrenModel*>(proxy_model->sourceModel())};
+    ChildrenModel *children{static_cast<ChildrenModel *>(proxy_model->sourceModel())};
     ChildModel const *child{children->getModel(source_index.row())};
     /*preparing document in html format*/
     QString html =
@@ -147,7 +147,7 @@ void RegistryWidget::printDoc()
             "<th>Дата проведения</th>"
             "</tr>";
     QList<Vaccine> *vaccines{child->getDataList()};
-    for(int i{0}; i < vaccines->count(); ++i){
+    for(int i{0}; i < vaccines->count(); ++i) {
         html.append("<tr>");
 
         html.append("<td>");

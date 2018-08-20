@@ -24,7 +24,7 @@ class VaccinesWidget: public QWidget
 
 public:
     explicit VaccinesWidget(QWidget *parent = nullptr);
-    void setModel(VaccinesModel*);
+    void setModel(VaccinesModel *);
 
 signals:
     void showAddVaccineWidget();        //signal for show add vaccine widget
@@ -33,7 +33,7 @@ signals:
 
 private slots:
     void removeItem();                  //remove selected row from table
-    void addVaccine(Vaccine&);          //add new vaccine in vaccines model
+    void addVaccine(Vaccine &);         //add new vaccine in vaccines model
 
 };
 

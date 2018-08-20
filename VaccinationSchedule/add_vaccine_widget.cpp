@@ -9,7 +9,7 @@ AddVaccineWidget::AddVaccineWidget(SettingsModel *settings_model,
     QLabel *lbl_country{new QLabel("Страна изготовитель:")};
     QLabel *lbl_best_before{new QLabel("Срок годности:")};
 
-    mapper = new QDataWidgetMapper(this);       //show data in appropriate widget
+    mapper = new QDataWidgetMapper(this);               //show data in appropriate widget
     mapper->setSubmitPolicy(QDataWidgetMapper::ManualSubmit);
 
     comb_name = new QComboBox;
@@ -90,7 +90,7 @@ void AddVaccineWidget::addVaccine()
 {
     if(isEditMode)
         mapper->submit();
-    else{
+    else {
         Vaccine vaccine(comb_name->currentText(),
                         txt_trade_name->text(),
                         txt_serial->text(),

@@ -1,5 +1,5 @@
-#ifndef VACCINES_SETTINGS_H
-#define VACCINES_SETTINGS_H
+#ifndef VACCINES_SETTINGS_WIDGET_H
+#define VACCINES_SETTINGS_WIDGET_H
 
 #include "settings_model.h"
 #include "qlineedit_delegate.h"
@@ -22,20 +22,20 @@ class VaccinesSettingsWidget: public QDialog
 {
     Q_OBJECT
 
-    QLineEdit *txt_name;        //name of vaccine
-    QLineEdit *txt_mult;        //multiplicity of vaccination
+    QLineEdit *txt_name;            //name of vaccine
+    QLineEdit *txt_mult;            //multiplicity of vaccination
 
     SettingsModel *model;
     QTableView *table;
 
 public:
     explicit VaccinesSettingsWidget(QWidget *parent = nullptr);
-    void setModel(SettingsModel*);
+    void setModel(SettingsModel *);
 
 private slots:
-    void addItem();             //add vaccine to vaccines settings repository
-    void removeItem();          //remove selected row from table
-    void saveSettings();        //save vaccine (emit save signal)
+    void addItem();                 //add vaccine to vaccines settings repository
+    void removeItem();              //remove selected row from table
+    void saveSettings();            //save vaccine (emit save signal)
 };
 
-#endif // VACCINES_SETTINGS_H
+#endif // VACCINES_SETTINGS_WIDGET_H

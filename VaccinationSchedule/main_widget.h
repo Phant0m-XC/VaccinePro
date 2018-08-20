@@ -13,6 +13,7 @@
 #include <QMenu>
 #include <QTabWidget>
 #include <QVBoxLayout>
+//#include <QStyleFactory>
 
 /*Main Widget*/
 
@@ -46,10 +47,10 @@ signals:
 
 private slots:
     //show about :)
-    void help();
+    void help() const;
 
     //show dialog box "save done"
-    void saveData();
+    void saveData() const;
 
 };
 

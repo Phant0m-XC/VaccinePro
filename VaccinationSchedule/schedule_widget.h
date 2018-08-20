@@ -22,8 +22,8 @@ class ScheduleWidget: public QWidget
     QTableView *table;
 
 public:
-    explicit ScheduleWidget(ChildrenModel*, SettingsModel*, QWidget *parent = nullptr);
-    void setModel(ScheduleModel*);
+    explicit ScheduleWidget(ChildrenModel *, SettingsModel *, QWidget *parent = nullptr);
+    void setModel(ScheduleModel *);
 
 private:
     void clearTable();
