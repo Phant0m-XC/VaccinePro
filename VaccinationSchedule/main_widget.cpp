@@ -74,7 +74,7 @@ MainWidget::~MainWidget()
 
 void MainWidget::setAppStyle()
 {
-    setWindowTitle("ВакцинаПро");
+    setWindowTitle("Vaccine Pro");
     setFixedSize(QSize(500, 550));
     setWindowIcon(QIcon(":icon.png"));
     QString style {
