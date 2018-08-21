@@ -27,6 +27,7 @@ MainWidget::MainWidget(QWidget *parent): QWidget(parent)
 
     QMenuBar *bar{new QMenuBar};
     QMenu *menu_file{new QMenu("&Файл")};
+    menu_file->addAction("&Сохранить...", registry_widget, SLOT(saveDoc()), Qt::ALT + Qt::Key_S);
     menu_file->addAction("&Печать...", registry_widget, SLOT(printDoc()), Qt::ALT + Qt::Key_P);
     menu_file->addAction("&Выход", this, SLOT(close()), Qt::ALT + Qt::Key_F4);
     QMenu *menu_settings{new QMenu("&Настройки")};

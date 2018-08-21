@@ -96,32 +96,8 @@ void RegistryWidget::clearSearch()
     txt_search_m_name->clear();
 }
 
-void RegistryWidget::printDoc()
+QString RegistryWidget::formDocument(QModelIndexList &indexes) const
 {
-    QModelIndexList indexes{table->selectionModel()->selectedRows()}; //if row not selected show warning and return
-    if(!indexes.count()) {
-        QString style =
-                "QMessageBox{background-color: #ccf2ff;}"
-                "QPushButton{"
-                "background-color: #80dfff;"
-                "border-style: outset;"
-                "border-width: 2px;"
-                "border-radius: 10px;"
-                "border-color: #006080;"
-                "font: bold 12px;"
-                "min-width: 5em;"
-                "padding: 3px;"
-                "}"
-                "QPushButton:pressed{"
-                "background-color: #00ace6;"
-                "border-style: inset;"
-                "}";
-        QMessageBox message(QMessageBox::Information, "Внимание", "Не выбраны данные для печати");
-        message.setWindowIcon(QIcon(":icon.png"));
-        message.setStyleSheet(style);
-        message.exec();
-        return;
-    }
     QAbstractItemModel *item_model{const_cast<QAbstractItemModel *>(indexes.at(0).model())};
     ProxySearchModel *proxy_model{static_cast<ProxySearchModel *>(item_model)};
     QModelIndex source_index{proxy_model->mapToSource(indexes.at(0))};
@@ -179,13 +155,92 @@ void RegistryWidget::printDoc()
 
     html.append("</table>");
 
+    return html;
+}
+
+void RegistryWidget::saveDoc()
+{
+    QModelIndexList indexes{table->selectionModel()->selectedRows()};   //if row not selected show warning and return
+    if(!indexes.count()) {
+        QString style =
+                "QMessageBox{background-color: #ccf2ff;}"
+                "QPushButton{"
+                "background-color: #80dfff;"
+                "border-style: outset;"
+                "border-width: 2px;"
+                "border-radius: 10px;"
+                "border-color: #006080;"
+                "font: bold 12px;"
+                "min-width: 5em;"
+                "padding: 3px;"
+                "}"
+                "QPushButton:pressed{"
+                "background-color: #00ace6;"
+                "border-style: inset;"
+                "}";
+        QMessageBox message(QMessageBox::Information, "Внимание", "Не выбраны данные для сохранения");
+        message.setWindowIcon(QIcon(":icon.png"));
+        message.setStyleSheet(style);
+        message.exec();
+        return;
+    }
+
+    QString fileName{QFileDialog::getSaveFileName(this, "Сохранить...", QString(), "*.pdf")};
+    if(fileName.isEmpty())
+        return;
+
+    if (QFileInfo(fileName).suffix().isEmpty())
+        fileName.append(".pdf");
+
+    QString html{formDocument(indexes)};
+
     QTextDocument document;
     document.setHtml(html);
 
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName(fileName);
+    document.print(&printer);
+}
+
+void RegistryWidget::printDoc()
+{
+    QModelIndexList indexes{table->selectionModel()->selectedRows()};   //if row not selected show warning and return
+    if(!indexes.count()) {
+        QString style =
+                "QMessageBox{background-color: #ccf2ff;}"
+                "QPushButton{"
+                "background-color: #80dfff;"
+                "border-style: outset;"
+                "border-width: 2px;"
+                "border-radius: 10px;"
+                "border-color: #006080;"
+                "font: bold 12px;"
+                "min-width: 5em;"
+                "padding: 3px;"
+                "}"
+                "QPushButton:pressed{"
+                "background-color: #00ace6;"
+                "border-style: inset;"
+                "}";
+        QMessageBox message(QMessageBox::Information, "Внимание", "Не выбраны данные для печати");
+        message.setWindowIcon(QIcon(":icon.png"));
+        message.setStyleSheet(style);
+        message.exec();
+        return;
+    }
+
     QPrinter printer;
-    QPrintDialog *dialog{new QPrintDialog(&printer, this)}; //print dialog
+    QPrintDialog *dialog{new QPrintDialog(&printer, this)};     //print dialog
     dialog->setWindowTitle("Print Document");
-    if (dialog->exec() == QDialog::Accepted)
+    if (dialog->exec() == QDialog::Accepted) {
+        QString html{formDocument(indexes)};
+
+        QTextDocument document;
+        document.setHtml(html);
         document.print(&printer);
+    }
+
     delete dialog;
 }

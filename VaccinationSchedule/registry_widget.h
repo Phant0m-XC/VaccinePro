@@ -15,6 +15,7 @@
 #include <QSortFilterProxyModel>
 #include <QTextDocument>
 #include <QtPrintSupport/QPrinter>
+#include <QFileDialog>
 #include <QPrintDialog>
 #include <QMessageBox>
 
@@ -46,6 +47,8 @@ private slots:
     void removeItem();              //remove selected row from table
     void addChild(ChildModel &);    //add child to children model
     void clearSearch();             //clear search fields
+    QString formDocument(QModelIndexList &) const;
+    void saveDoc();                 //save child's vaccines data to file
     void printDoc();                //print child's vaccines data
 
 };
