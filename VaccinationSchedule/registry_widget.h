@@ -39,17 +39,17 @@ public:
     void setModel(ChildrenModel *);
 
 signals:
-    void showAddChildWidget();      //signal for show add child widget
-    void editChild(QModelIndex);    //signal for show edit child widget
-    void saveData();                //signal for show information dialog
+    void showAddChildWidget();                          //signal for show add child widget
+    void editChild(QModelIndex);                        //signal for show edit child widget
+    void saveData();                                    //signal for show information dialog
 
 private slots:
-    void removeItem();              //remove selected row from table
-    void addChild(ChildModel &);    //add child to children model
-    void clearSearch();             //clear search fields
-    QString formDocument(QModelIndexList &) const;
-    void saveDoc();                 //save child's vaccines data to file
-    void printDoc();                //print child's vaccines data
+    void removeItem();                                  //remove selected row from table
+    void addChild(ChildModel &);                        //add child to children model
+    void clearSearch();                                 //clear search fields
+    QString formDocument(QModelIndexList &) const;      //form document
+    void saveDoc();                                     //save child's vaccines data to file
+    void printDoc();                                    //print child's vaccines data
 
 };
 
