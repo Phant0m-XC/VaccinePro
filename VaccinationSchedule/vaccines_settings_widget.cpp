@@ -6,6 +6,7 @@ VaccinesSettingsWidget::VaccinesSettingsWidget(QWidget *parent): QDialog(parent)
     QLabel *lbl_mult{new QLabel("Сроки введения(мес.)")};
     txt_name = new QLineEdit;
     txt_mult = new QLineEdit;
+    txt_mult->setToolTip("Месяц через запятую");
     QRegExp rx("[0-9,]*");                                      //let enter only numbers and commas
     txt_mult->setValidator(new QRegExpValidator(rx, this));     //
     lbl_name->setBuddy(txt_name);

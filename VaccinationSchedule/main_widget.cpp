@@ -26,7 +26,7 @@ MainWidget::MainWidget(QWidget *parent): QWidget(parent)
     tab_widget->addTab(schedule_widget, "Планирование");
 
     QMenuBar *bar{new QMenuBar};
-    QMenu *menu_file{new QMenu("&Файл")};
+    menu_file = new QMenu("&Файл");
     menu_file->addAction("&Сохранить...", registry_widget, SLOT(saveDoc()), Qt::ALT + Qt::Key_S);
     menu_file->addAction("&Печать...", registry_widget, SLOT(printDoc()), Qt::ALT + Qt::Key_P);
     menu_file->addAction("&Выход", this, SLOT(close()), Qt::ALT + Qt::Key_F4);
@@ -57,6 +57,7 @@ MainWidget::MainWidget(QWidget *parent): QWidget(parent)
     connect(vaccines_widget, SIGNAL(editVaccine(QModelIndex)), add_vaccine_widget, SLOT(showEditWidget(QModelIndex)));
     connect(vaccines_widget, SIGNAL(saveData()), this, SLOT(saveData()));
     connect(add_vaccine_widget, SIGNAL(applyVaccine(Vaccine &)), vaccines_widget, SLOT(addVaccine(Vaccine &)));
+    connect(tab_widget, SIGNAL(currentChanged(int)), SLOT(itemMenuSwitch(int)));
 
     emit startLoad();
 
@@ -326,6 +327,18 @@ void MainWidget::setAppStyle()
         "}"
     };
     setStyleSheet(style);
+}
+
+void MainWidget::itemMenuSwitch(int index)
+{
+    if(index == 0) {
+        const_cast<QAction *>(static_cast<QAction const *>(menu_file->actions().at(0)))->setEnabled(true);
+        const_cast<QAction *>(static_cast<QAction const *>(menu_file->actions().at(1)))->setEnabled(true);
+    }
+    else {
+        const_cast<QAction *>(static_cast<QAction const *>(menu_file->actions().at(0)))->setEnabled(false);
+        const_cast<QAction *>(static_cast<QAction const *>(menu_file->actions().at(1)))->setEnabled(false);
+    }
 }
 
 void MainWidget::help() const

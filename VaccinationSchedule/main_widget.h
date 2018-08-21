@@ -32,6 +32,8 @@ class MainWidget: public QWidget
     AddChildWidget *add_child_widget;
     AddVaccineWidget *add_vaccine_widget;
 
+    QMenu *menu_file;
+
 public:
     explicit MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
@@ -45,6 +47,9 @@ signals:
     void startLoad();
 
 private slots:
+    //change enamble/disable menu
+    void itemMenuSwitch(int);
+
     //show about :)
     void help() const;
 

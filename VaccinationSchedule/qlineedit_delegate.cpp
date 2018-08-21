@@ -10,6 +10,7 @@ QWidget * QLineEditDelegate::createEditor(QWidget *parent, QStyleOptionViewItem 
     Q_UNUSED(option)
     Q_UNUSED(index)
     QLineEdit *editor{new QLineEdit(parent)};
+    editor->setToolTip("Месяц через запятую");
     QRegExp rx("[0-9,]*");                                  //let enter only numbers and commas
     editor->setValidator(new QRegExpValidator(rx, parent)); //
     return editor;
