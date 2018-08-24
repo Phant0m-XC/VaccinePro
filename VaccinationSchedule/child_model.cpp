@@ -11,36 +11,6 @@ ChildModel::ChildModel(QString _first_name, QString _middle_name, QString _last_
     vaccines = new QList<Vaccine>;
 }
 
-ChildModel::ChildModel(ChildModel const &child)
-{
-    first_name = child.first_name;
-    middle_name = child.middle_name;
-    last_name = child.last_name;
-    birthday = child.birthday;
-    vaccines = new QList<Vaccine>;
-    for(Vaccine vaccine : *child.vaccines)
-        vaccines->push_back(vaccine);
-}
-
-ChildModel & ChildModel::operator=(ChildModel const &child)
-{
-    if(this == &child)
-        return *this;
-    first_name = child.first_name;
-    middle_name = child.middle_name;
-    last_name = child.last_name;
-    birthday = child.birthday;
-    if(vaccines) {
-        if(!vaccines->isEmpty())
-            vaccines->clear();
-        delete vaccines;
-    }
-    vaccines = new QList<Vaccine>;
-    for(Vaccine vaccine : *child.vaccines)
-        vaccines->push_back(vaccine);
-    return *this;
-}
-
 ChildModel::~ChildModel()
 {
     if(vaccines) {

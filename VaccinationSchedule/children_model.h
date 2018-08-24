@@ -13,7 +13,7 @@ class ChildrenModel: public QAbstractTableModel
     Q_OBJECT
 
     QFile *file_children;
-    QList<ChildModel> *children;
+    QList<ChildModel *> *children;
 
 public:
     explicit ChildrenModel(QObject *parent = nullptr);
@@ -44,10 +44,10 @@ public:
     Qt::ItemFlags flags(QModelIndex const &) const;
 
     //insert child to children repository
-    void insertData(ChildModel &);
+    void insertData(ChildModel *);
 
     //get children repository
-    QList<ChildModel> * getDataList() const;
+    QList<ChildModel *> * getDataList() const;
 
     //get child by index
     ChildModel const * getModel(int);

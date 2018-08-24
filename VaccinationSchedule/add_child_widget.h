@@ -60,7 +60,7 @@ public:
     explicit AddChildWidget(QDateEditDelegate *, VaccinesModel *, SettingsModel *, QWidget *parent = nullptr);
 
 signals:
-    void applyChild(ChildModel &);
+    void applyChild(ChildModel *);
 
 private slots:
     void showWidget();                  //show widget in mode "add new data"

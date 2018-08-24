@@ -257,7 +257,7 @@ void AddChildWidget::addChild()
         model->setFirstName(txt_f_name->text());
         model->setMiddleName(txt_m_name->text());
         model->setBirthday(cal_birthday->selectedDate());
-        emit applyChild(*model);
+        emit applyChild(model);
     }
     hide();
 }

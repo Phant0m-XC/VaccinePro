@@ -84,7 +84,7 @@ void RegistryWidget::removeItem()
     }
 }
 
-void RegistryWidget::addChild(ChildModel &child)
+void RegistryWidget::addChild(ChildModel *child)
 {
     model->insertData(child);
 }

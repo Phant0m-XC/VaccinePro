@@ -52,7 +52,7 @@ MainWidget::MainWidget(QWidget *parent): QWidget(parent)
     connect(registry_widget, SIGNAL(editChild(QModelIndex)), add_child_widget, SLOT(showEditWidget(QModelIndex)));
     connect(registry_widget, SIGNAL(saveData()), this, SLOT(saveData()));
     connect(registry_widget, SIGNAL(saveData()), schedule_widget, SLOT(calculate()));
-    connect(add_child_widget, SIGNAL(applyChild(ChildModel &)), registry_widget, SLOT(addChild(ChildModel &)));
+    connect(add_child_widget, SIGNAL(applyChild(ChildModel *)), registry_widget, SLOT(addChild(ChildModel *)));
     connect(vaccines_widget, SIGNAL(showAddVaccineWidget()), add_vaccine_widget, SLOT(showWidget()));
     connect(vaccines_widget, SIGNAL(editVaccine(QModelIndex)), add_vaccine_widget, SLOT(showEditWidget(QModelIndex)));
     connect(vaccines_widget, SIGNAL(saveData()), this, SLOT(saveData()));

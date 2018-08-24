@@ -9,7 +9,7 @@
 
 class ScheduleModel: public QAbstractTableModel
 {
-    QList<ChildModel> *schedule_child;
+    QList<ChildModel *> *schedule_child;
     QList<Vaccine> *schedule_vaccine;
 
 public:

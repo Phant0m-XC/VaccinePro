@@ -45,7 +45,7 @@ signals:
 
 private slots:
     void removeItem();                                  //remove selected row from table
-    void addChild(ChildModel &);                        //add child to children model
+    void addChild(ChildModel *);                        //add child to children model
     void clearSearch();                                 //clear search fields
     QString formDocument(QModelIndexList &) const;      //form document
     void saveDoc();                                     //save child's vaccines data to file

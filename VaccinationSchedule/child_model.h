@@ -20,8 +20,8 @@ class ChildModel: public QAbstractTableModel
 public:
     explicit ChildModel(QObject *parent = nullptr);
     ChildModel(QString, QString, QString, QDate);
-    ChildModel(ChildModel const &);
-    ChildModel & operator=(ChildModel const &);
+    //ChildModel(ChildModel const &) = delete;
+    //ChildModel & operator=(ChildModel const &) = delete;
     virtual ~ChildModel();
 
     QString getFirstName() const;                   //getter, setter first name

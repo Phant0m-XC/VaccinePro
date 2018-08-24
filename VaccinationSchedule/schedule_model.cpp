@@ -2,15 +2,18 @@
 
 ScheduleModel::ScheduleModel(QObject *parent): QAbstractTableModel(parent)
 {
-    schedule_child = new QList<ChildModel>;
+    schedule_child = new QList<ChildModel *>;
     schedule_vaccine = new QList<Vaccine>;
 }
 
 ScheduleModel::~ScheduleModel()
 {
     if(schedule_child) {
-        if(!schedule_child->isEmpty())
+        if(!schedule_child->isEmpty()) {
+            for(ChildModel *child : *schedule_child)
+                delete child;
             schedule_child->clear();
+        }
         delete schedule_child;
     }
     if(schedule_vaccine) {
@@ -59,11 +62,11 @@ QVariant ScheduleModel::data(QModelIndex const &index, int role) const
     case Qt::DisplayRole:
         switch(index.column()) {
         case 0:
-            return schedule_child->at(index.row()).getLastName();
+            return schedule_child->at(index.row())->getLastName();
         case 1:
-            return schedule_child->at(index.row()).getFirstName();
+            return schedule_child->at(index.row())->getFirstName();
         case 2:
-            return schedule_child->at(index.row()).getMiddleName();
+            return schedule_child->at(index.row())->getMiddleName();
         case 3:
             return schedule_vaccine->at(index.row()).getName();
         default:
@@ -95,11 +98,11 @@ Qt::ItemFlags ScheduleModel::flags(QModelIndex const &index) const
 
 void ScheduleModel::calculateSchedule(QDate const &date, ChildrenModel *children_model, SettingsModel *settings_model)
 {
-    QList<ChildModel> *children{children_model->getDataList()};
+    QList<ChildModel *> *children{children_model->getDataList()};
     QList<Vaccine> *vaccines{settings_model->getDataList()};
-    for(ChildModel const child : *children) {
-        int month_age{calculateAge(date, child.getBirthday())};
-        QList<Vaccine> *child_vaccines{child.getDataList()};
+    for(ChildModel *child : *children) {
+        int month_age{calculateAge(date, child->getBirthday())};
+        QList<Vaccine> *child_vaccines{child->getDataList()};
         for(Vaccine const vaccine : *vaccines) {
             QStringList mult_list{vaccine.getMult().split(QRegularExpression(","), QString::SplitBehavior::SkipEmptyParts)};
             int count{0};
