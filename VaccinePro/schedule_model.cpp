@@ -117,8 +117,13 @@ void ScheduleModel::calculateSchedule(QDate const &date, ChildrenModel *children
                 continue;
             if(count < mult_list.count() && month_age >= mult_list[count].toInt()) {
                 int row{rowCount()};
+                //new reference
+                ChildModel *new_child{new ChildModel};
+                new_child->setFirstName(child->getFirstName());
+                new_child->setMiddleName(child->getMiddleName());
+                new_child->setLastName(child->getLastName());
                 beginInsertRows(QModelIndex(), row, row);
-                schedule_child->push_back(child);
+                schedule_child->push_back(new_child);
                 schedule_vaccine->push_back(vaccine);
                 endInsertRows();
             }
