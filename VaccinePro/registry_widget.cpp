@@ -105,6 +105,8 @@ QString RegistryWidget::formDocument(QModelIndexList &indexes) const
     ChildModel const *child{children->getModel(source_index.row())};
     /*preparing document in html format*/
     QString html =
+            "<html>"
+            "<body>"
             "<div align=right>" +
             QDate::currentDate().toString("dd.MM.yyyy") +
             "</div>"
@@ -113,7 +115,7 @@ QString RegistryWidget::formDocument(QModelIndexList &indexes) const
             child->getLastName() + " " + child->getFirstName() + " " + child->getMiddleName() + ", " +
             child->getBirthday().toString("dd.MM.yyyy") +
             "</h3>"
-            "<table border=1 cellpadding=0 cellspacing=0 style=border-collapse:collapse align=center>"
+            "<table border=1 cellpadding=5 cellspacing=0>"
             "<tr>"
             "<th>Название</th>"
             "<th>Торговое название</th>"
@@ -154,6 +156,8 @@ QString RegistryWidget::formDocument(QModelIndexList &indexes) const
     }
 
     html.append("</table>");
+    html.append("</body>");
+    html.append("</html>");
 
     return html;
 }
